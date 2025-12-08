@@ -1,0 +1,218 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "관리자",
+      "userId": "admin",
+      "password": "1234",
+      "phone": "010-0000-0000",
+      "interests": [
+        "서울"
+      ]
+    },
+    {
+      "id": "57bd",
+      "name": "석정운",
+      "userId": "eric8959",
+      "password": "wjddns1213!",
+      "phone": "010-3426-5593",
+      "interests": [
+        "서울"
+      ]
+    },
+    {
+      "id": "5054",
+      "userId": "test1",
+      "password": "123",
+      "confirm": "123",
+      "name": "테스트",
+      "phone": "010-2456-8569",
+      "interests": [
+        "강원"
+      ]
+    },
+    {
+      "id": "e986",
+      "userId": "dongchan",
+      "password": "1234",
+      "confirm": "1234",
+      "name": "한동찬",
+      "phone": "01012345678",
+      "gender": "female",
+      "interests": [
+        "경복궁"
+      ],
+      "country": "usa",
+      "status": "foreigner"
+    }
+  ],
+  "heritage": [
+    {
+      "id": "gyeongbokgung",
+      "name": "경복궁",
+      "category": "Palace",
+      "description": "조선 왕조 제일의 법궁. 북악산 아래 광화문을 중심으로 조화를 이루는 웅장한 궁궐입니다.",
+      "images": [
+        "/images/gyeongbok.jpg"
+      ],
+      "location": "서울 종로구 사직로 161",
+      "visitingHours": "09:00 - 17:00 (화요일 휴무)"
+    },
+    {
+      "id": "changdeokgung",
+      "name": "창덕궁",
+      "category": "Palace",
+      "description": "자연과 조화를 이루는 가장 한국적인 궁궐. 유네스코 세계문화유산입니다.",
+      "images": [
+        "/images/changdeok.jpg"
+      ],
+      "location": "서울 종로구 율곡로 99",
+      "visitingHours": "09:00 - 17:00 (월요일 휴무)"
+    },
+    {
+      "id": "changgyeonggung",
+      "name": "창경궁",
+      "category": "Palace",
+      "description": "왕실의 생활 공간으로 사랑받았던 궁궐. 대온실과 야간 개장이 유명합니다.",
+      "images": [
+        "/images/changgyeong.jpg"
+      ],
+      "location": "서울 종로구 창경궁로 185",
+      "visitingHours": "09:00 - 21:00 (월요일 휴무)"
+    },
+    {
+      "id": "deoksugung",
+      "name": "덕수궁",
+      "category": "Palace",
+      "description": "전통 목조 건축과 서양식 석조 건축이 조화를 이루는 근대 역사의 현장입니다.",
+      "images": [
+        "/images/deoksu.jpg"
+      ],
+      "location": "서울 중구 세종대로 99",
+      "visitingHours": "09:00 - 21:00 (월요일 휴무)"
+    },
+    {
+      "id": "gyeonghuigung",
+      "name": "경희궁",
+      "category": "Palace",
+      "description": "조선 후기 왕들의 피우처로 사용되었던 서궐. 도심 속 호젓한 산책을 즐길 수 있습니다.",
+      "images": [
+        "/images/geonghui.jpg"
+      ],
+      "location": "서울 종로구 새문안로 45",
+      "visitingHours": "09:00 - 18:00 (월요일 휴무)"
+    }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "name": "incense holder",
+      "price": 55000,
+      "category": "Living",
+      "images": [
+        "/images/goods_1.png"
+      ],
+      "relatedHeritageId": "gyeongbokgung"
+    },
+    {
+      "id": "p2",
+      "name": "incense holder_v1",
+      "price": 45000,
+      "category": "Living",
+      "images": [
+        "/images/goods_2.png"
+      ],
+      "relatedHeritageId": "gyeongbokgung"
+    },
+    {
+      "id": "p3",
+      "name": "incense holder_v2",
+      "price": 25000,
+      "category": "Accessories",
+      "images": [
+        "/images/goods_3.png"
+      ],
+      "relatedHeritageId": "changgyeonggung"
+    },
+    {
+      "id": "p4",
+      "name": "incense holder_v3",
+      "price": 30000,
+      "category": "Living",
+      "images": [
+        "/images/goods_4.png"
+      ],
+      "relatedHeritageId": "gyeongbokgung"
+    },
+    {
+      "id": "p5",
+      "name": "incense holder_v4",
+      "price": 12000,
+      "category": "Stationery",
+      "images": [
+        "/images/goods_5.png"
+      ],
+      "relatedHeritageId": "gyeongbokgung"
+    },
+    {
+      "id": "p6",
+      "name": "incense holder_v5",
+      "price": 18000,
+      "category": "Fashion",
+      "images": [
+        "/images/goods_6.png"
+      ],
+      "relatedHeritageId": "changgyeonggung"
+    },
+    {
+      "id": "p7",
+      "name": "ribbon_v1",
+      "price": 22000,
+      "category": "Accessories",
+      "images": [
+        "/images/goods_7.png"
+      ],
+      "relatedHeritageId": "gyeongbokgung"
+    },
+    {
+      "id": "p8",
+      "name": "Basalt air freshener",
+      "price": 28000,
+      "category": "Living",
+      "images": [
+        "/images/goods_8.png"
+      ],
+      "relatedHeritageId": "bulguksa"
+    },
+    {
+      "id": "p9",
+      "name": "lucky bag_v1",
+      "price": 35000,
+      "category": "Fashion",
+      "images": [
+        "/images/goods_9.png"
+      ],
+      "relatedHeritageId": "changgyeonggung"
+    },
+    {
+      "id": "p10",
+      "name": "tie clip",
+      "price": 5000,
+      "category": "Stationery",
+      "images": [
+        "/images/goods_10.png"
+      ],
+      "relatedHeritageId": "gyeongbokgung"
+    },
+    {
+      "id": "p11",
+      "name": "Shoulder bag_v1",
+      "price": 40000,
+      "category": "Living",
+      "images": [
+        "/images/goods_11.png"
+      ],
+      "relatedHeritageId": "gyeongbokgung"
+    }
+  ]
+}
