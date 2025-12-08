@@ -13,6 +13,9 @@ const Container = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   
+
+  
+  // 모바일에서는 세로로 배치 (반응형)
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -23,6 +26,7 @@ const ImageSection = styled.div`
   background: #f5f5f5;
   border-radius: 0;
   overflow: hidden;
+
   aspect-ratio: 1;
   
   img {
@@ -82,21 +86,34 @@ const Button = styled.button`
 
 export default function ShopDetail() {
   const { t } = useLanguage();
+  // URL 파라미터에서 상품 ID 추출 (예: /shop/1 -> id는 "1")
   const { id } = useParams();
+  // 페이지 이동을 위한 훅 (장바구니 담기 후 이동용)
   const navigate = useNavigate();
+
+  // 초기값 null: 데이터가 로딩되기 전 상태를 명시적으로 표현
   const [product, setProduct] = useState(null);
+  // 전역 카트 상태에 접근하기 위한 커스텀 훅
   const { addToCart } = useCart();
 
   useEffect(() => {
+    // 의존성 배열에 [id] 포함: 관련 상품 클릭 등으로 ID가 바뀌면 새로 요청해야 함
+    // (빈 배열로 두면 ID가 바껴도 화면이 안 바뀌는 버그 발생 가능)
     fetch(`${API}/products/${id}`)
       .then(res => res.json())
       .then(setProduct);
   }, [id]);
 
+  // Guard Clause: 데이터 로딩 전에는 아무것도 렌더링하지 않음 (Null Check)
+  // (실제로는 스켈레톤 UI나 로딩 스피너를 넣는게 좋음)
   if (!product) return null;
 
   const handleAddToCart = () => {
+    // 불변성 유지를 위해 CartContext 내부에서 처리하도록 위임
     addToCart(product);
+    
+    // 사용자 경험(UX): 장바구니로 바로 이동할지 선택권 부여 (window.confirm 사용)
+    // 모달을 직접 구현하면 코드가 길어져서 브라우저 기본 기능 활용
     if (window.confirm(t('shop', 'added'))) {
       navigate('/cart');
     }
@@ -110,6 +127,7 @@ export default function ShopDetail() {
       <InfoSection>
         <Category>{product.category}</Category>
         <Name>{product.name}</Name>
+        {/* toLocaleString() 써서 천단위 콤마 자동 처리 */}
         <Price>{product.price.toLocaleString()}won</Price>
 
         <Button onClick={handleAddToCart}>{t('shop', 'addToCart')}</Button>
