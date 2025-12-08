@@ -284,6 +284,7 @@ export default function Signup() {
           />
         </InputGroup>
 
+        {/*과제 중 elements 추가 부분*/}
         {/* 전화번호 */}
         <InputGroup>
           <label>{t('signup', 'phone')}</label>
@@ -294,7 +295,9 @@ export default function Signup() {
           />
         </InputGroup>
 
-        {/* 성별 선택 (라디오 버튼) */}
+        {/*과제 중 elements 추가 부분*/}
+        {/* 성별 선택 (라디오 버튼) 체크박스랑 비교해보면서 해보기 */}
+        {/* 아 라디오 버튼 사용하는게 맞음, 체크 박스는 중복 선택이 가능해서 안된다*/}
         <InputGroup>
           <label>{t('signup', 'gender')}</label>
           <RadioGroup>
@@ -322,6 +325,7 @@ export default function Signup() {
         </InputGroup>
 
         {/* 내국인/외국인 여부 */}
+        {/*과제 중 elements 추가 부분*/}
         <InputGroup>
           <label>{t('signup', 'status')}</label>
           <RadioGroup>
@@ -358,7 +362,9 @@ export default function Signup() {
           />
         </InputGroup>
 
+        {/*과제 중 elements 추가 부분*/}
         {/* 관심 궁궐 선택 (체크박스) */}
+        {/* 여기서는 체크박스 화활용ㅇ 중복을 해도 되니까 사용하기 */}
         <CheckboxGroup>
           <label className="group-label">{t('signup', 'interests')}</label>
           <InterestOptions>

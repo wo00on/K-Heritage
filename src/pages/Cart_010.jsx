@@ -171,7 +171,7 @@ export default function Cart() {
           // key prop: 효율적인 DOM 업데이트를 위해 고유 ID 사용 필수
           <CartItem key={item.id}>
             <ItemImage>
-              {/* 이미지 데이터 존재 여부 확인 (방어 코드) */}
+              {/* 이미지 데이터 존재 여부 확인하고 적용하기  */}
               {item.images && item.images[0] && <img src={item.images[0]} alt={item.name} />}
             </ItemImage>
             <ItemInfo>

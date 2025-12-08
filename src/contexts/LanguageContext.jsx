@@ -431,17 +431,30 @@ Restoration: Only a small part of the original scale has been restored. Opened t
     }
 };
 
+// 언어 관련 데이터를 전역적으로 관리 공급하는 Provider 컴포넌트
 export function LanguageProvider({ children }) {
+    // 현재 선택된 언어 상태 관리 ('ko': 한국어, 'en': 영어) - 기본값은 한국어
     const [language, setLanguage] = useState('ko');
 
+    // 언어를 토글(전환)하는 함수
+    // 한국어('ko')일 경우 영어('en')로, 그 외의 경우(영어)에는 다시 한국어로 변경
     const toggleLanguage = () => {
         setLanguage(prev => prev === 'ko' ? 'en' : 'ko');
     };
 
+    // 다국어 번역 헬퍼 함수
+    // section: 번역 데이터의 대분류 (예: 'nav', 'home' 등)
+    // key: 대분류 내의 구체적인 항목 키
+    // 동작: 현재 설정된 언어(language)에 맞는 번역 객체에서 텍스트를 찾아 반환
+    // 만약 번역 데이터가 없으면 fallback으로 key 값을 그대로 반환하여 에러 방지
     const t = (section, key) => {
         return translations[language][section][key] || key;
     };
 
+    // Context.Provider를 통해 하위 컴포넌트들에게 언어 상태와 함수들을 전달
+    // language: 현재 언어 값
+    // toggleLanguage: 언어 변경 함수
+    // t: 번역 함수
     return (
         <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
             {children}
@@ -449,6 +462,9 @@ export function LanguageProvider({ children }) {
     );
 }
 
+// 하위 컴포넌트에서 언어 관련 데이터에 쉽게 접근하기 위한 커스텀 Hook
+// useContext(LanguageContext)를 직접 사용하는 대신 이 Hook을 호출하여 사용
+// 반환값: { language, toggleLanguage, t } 객체
 export function useLanguage() {
     return useContext(LanguageContext);
 }

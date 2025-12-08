@@ -82,16 +82,14 @@ export default function Footer() {
 
           <Section>
             <Title>SNS</Title>
-            <List>
+            <List>{/* 교과서에서 link거는 것 활용, 실제 footer도 이런식으로 구현함, 문서 참조 */}
               <li><a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
               <li><a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">Youtube</a></li>
               <li><a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a></li>
             </List>
           </Section>
         </Content>
-        <Copyright>
-          &copy; 2025 K-Heritage. All rights reserved.
-        </Copyright>
+
       </Container>
     </>
   );

@@ -1,48 +1,73 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "관리자",
-      "userId": "admin",
-      "password": "1234",
-      "phone": "010-0000-0000",
-      "interests": [
-        "서울"
-      ]
-    },
-    {
-      "id": "57bd",
-      "name": "석정운",
+      "id": "0ccd",
       "userId": "eric8959",
-      "password": "wjddns1213!",
-      "phone": "010-3426-5593",
-      "interests": [
-        "서울"
-      ]
-    },
-    {
-      "id": "5054",
-      "userId": "test1",
-      "password": "123",
-      "confirm": "123",
-      "name": "테스트",
-      "phone": "010-2456-8569",
-      "interests": [
-        "강원"
-      ]
-    },
-    {
-      "id": "e986",
-      "userId": "dongchan",
       "password": "1234",
       "confirm": "1234",
-      "name": "한동찬",
-      "phone": "01012345678",
+      "name": "석정운",
+      "phone": "010-3426-5593",
+      "gender": "male",
+      "interests": [
+        "창덕궁"
+      ],
+      "country": "대한민국",
+      "status": "local"
+    },
+    {
+      "id": "8224",
+      "userId": "test1",
+      "password": "1234",
+      "confirm": "1234",
+      "name": "테스트원",
+      "phone": "010-1234-4567",
       "gender": "female",
       "interests": [
-        "경복궁"
+        "덕수궁"
       ],
-      "country": "usa",
+      "country": "USA",
+      "status": "foreigner"
+    },
+    {
+      "id": "8199",
+      "userId": "test2",
+      "password": "1234",
+      "confirm": "1234",
+      "name": "테스트투",
+      "phone": "010-4567-8956",
+      "gender": "female",
+      "interests": [
+        "창경궁"
+      ],
+      "country": "대한민국",
+      "status": "local"
+    },
+    {
+      "id": "d65d",
+      "userId": "test3",
+      "password": "1234",
+      "confirm": "1234",
+      "name": "테스트쓰리",
+      "phone": "010-1234-5678",
+      "gender": "female",
+      "interests": [
+        "창경궁"
+      ],
+      "country": "대한민국",
+      "status": "local"
+    },
+    {
+      "id": "4b81",
+      "userId": "test4",
+      "password": "1234",
+      "confirm": "1234",
+      "name": "테스트포",
+      "phone": "010-2568-9856",
+      "gender": "male",
+      "interests": [
+        "경희궁"
+      ],
+      "country": "dokyo",
       "status": "foreigner"
     }
   ],

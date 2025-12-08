@@ -1,11 +1,20 @@
+// 헤더 컴포넌트
+// 이 컴포넌트는 메인 네비게이션, 사용자 세션 상태, 언어 설정과 같은 전역 설정을 관리합니다.
+// 현재 라우트에 따라 스타일을 동적으로 변경합니다 (홈에서는 투명, 그 외에는 흰색 배경).
+
 import React, { useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { logout } from '../lib/api';
+
+// Prop Drilling을 방지하기 위해 Context API를 사용하여 전역 상태를 관리합니다.
 import { UserContext } from '../contexts/UserContext';
 import { useCart } from '../contexts/CartContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
+// 헤더 바는 동적 스타일링 props를 사용
+// 홈 페이지($isHome)에서는 히어로 이미지 위에 오버레이 시키기 (absolute 포지셔닝, 투명 배경).
+// 백드롭 블러 효과가 있는 일반적인 스티키(sticky) 헤더로 동작합니다.
 const Bar = styled.header`
   position: ${props => props.$isHome ? 'absolute' : 'sticky'};
   top: 0;
@@ -24,6 +33,7 @@ const Bar = styled.header`
 `;
 
 const Brand = styled(Link)`
+  // 'Noto Serif KR' 폰트를 사용하여 브랜드 명에 한국적인 유산의 프리미엄한 느낌을 줍니다.
   font-family: 'Noto Serif KR', serif;
   font-size: 1.5rem;
   font-weight: 700;
@@ -103,21 +113,28 @@ const LangButton = styled.button`
 `;
 
 export default function Header() {
+  // 사용자 인증, 장바구니 관리, 다국어 처리를 위한 전역 컨텍스트에 접근합니다.
   const { user, setUser } = useContext(UserContext);
   const { cart } = useCart();
   const { t, language, toggleLanguage } = useLanguage();
+
+  // 네비게이션 관련 훅 사용
   const nav = useNavigate();
   const location = useLocation();
 
+  // 현재 페이지가 홈인지 확인하여 헤더 스타일을 조정
   const isHome = location.pathname === '/';
 
   const onLogout = () => {
+    // 사용자 세션을 초기화하고 홈 페이지로 리다이렉트 시키고 
     logout();
     setUser(null);
     nav('/');
   };
 
+  // 장바구니 뱃지에 표시할 총 아이템 수량을 계산, 일반적인 쇼핑몰을 기반으로 만들었지만 백엔드 연동없이 구현하기 위해 ui 상에서 보여지는 것만 구현
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+  // 헤더에 떠있는 숫자가 표시간 된다 --> 150번줄로 함수 호출
 
   return (
     <Bar $isHome={isHome}>
@@ -130,6 +147,7 @@ export default function Header() {
 
         <CartLink to="/cart" $isHome={isHome}>
           {t('nav', 'cart')}
+          {/* 장바구니에 아이템이 있을 때만 뱃지 표시하기, 만약 없을 때는 */}
           {cartCount > 0 && <Badge $isHome={isHome}>{cartCount}</Badge>}
         </CartLink>
 
@@ -138,6 +156,7 @@ export default function Header() {
         ) : (
           <Button onClick={onLogout} $isHome={isHome}>{t('nav', 'logout')}</Button>
         )}
+        {/* 버튼으로 영어 바꾸는 거 두기, 다국어로 하고 싶지만 처음 구현해보는 것으로 다국어는 시실패 */}
         <LangButton onClick={toggleLanguage} $isHome={isHome}>
           {language === 'ko' ? 'EN' : 'KO'}
         </LangButton>

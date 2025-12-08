@@ -58,6 +58,8 @@ function App() {
 
             {/* 굿즈, 굿즈샵 관련 페이지 */}
             {/* TODO: 가끔 페이지 전환될 때 끊기는 느낌 있는데 나중에 최적화 확인 필요 */}
+            {/* TODO: 가끔 페이지 전환될 때 끊기는 느낌 있는데 나중에 최적화 확인 필요 */}
+
             <Route path="/shop" element={<ShopList />} />
             <Route path="/shop/:id" element={<ShopDetail />} />
             <Route path="/cart" element={<Cart />} />

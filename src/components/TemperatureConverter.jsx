@@ -124,26 +124,37 @@ export default function TemperatureConverter() {
   const celsius = scale === "f" ? tryConvert(temperature, toCelsius) : temperature;
   const fahrenheit = scale === "c" ? tryConvert(temperature, toFahrenheit) : temperature;
 
+  // UI 렌더링 영역: 반응형 레이아웃을 위해 ContentGrid를 사용합니다.
   return (
     <Container>
       <ContentGrid>
+        {/* 데스크탑 뷰: 왼쪽 사이드바에 세계 시계 배치 (모바일에서는 숨김) */}
+        {/* 다크 테마 박스로 시각적 무게감을 주어 디자인 밸런스를 맞춤 */}
         <DesktopClockWrapper>
           <DarkSectionBox>
-            <WorldClock />
+            <WorldClock />{/*시계 불러오기, 교과서 활용*/}
           </DarkSectionBox>
         </DesktopClockWrapper>
 
+        {/* 중앙 메인 컨텐츠: 온도 변환기 */}
         <SectionBox>
+          {/* 모바일 뷰: 상단에 세계 시계 배치 (데스크탑에서는 숨김) */}
           <MobileClockWrapper>
             <WorldClock />
           </MobileClockWrapper>
+
+          {/* 다국어 지원을 적용한 메인 타이틀 */}
           <Title>{t('converter', 'title')}</Title>
+
+          {/* 온도 입력 필드 영역: 섭씨와 화씨 입력을 위한 재사용 컴포넌트 사용 */}
           <InputsWrapper>
+            {/* 섭씨 입력 컴포넌트 - State lifting을 통해 부모에서 상태 관리 */}
             <TemperatureInput
               scale="c"
               temperature={celsius}
               onTemperatureChange={handleCelsiusChange}
             />
+            {/* 화씨 입력 컴포넌트 - 입력 시 즉시 반대 단위로 변환되어 표시됨 */}
             <TemperatureInput
               scale="f"
               temperature={fahrenheit}
@@ -152,8 +163,15 @@ export default function TemperatureConverter() {
           </InputsWrapper>
         </SectionBox>
 
+        {/* 오른쪽 사이드바: 부가 설명 및 가이드 */}
+        {/* 회색 배경의 박스로 메인 컨텐츠와 구분되는 보조 정보임을 시사 */}
         <GraySectionBox>
           <InfoTitle>{t('converter', 'explanationTitle')}</InfoTitle>
+          {/* 
+            dangerouslySetInnerHTML 사용 이유:
+            번역 텍스트 내의 HTML 태그(줄바꿈 <br/>, 강조 <strong>)를 실제로 렌더링하기 위함.
+            보안상 주의가 필요한 속성이지만, 신뢰할 수 있는 내부 텍스트(locales)만 사용하므로 안전함.
+          */}
           <InfoText dangerouslySetInnerHTML={{ __html: t('converter', 'explanation').replace(/\n/g, '<br/>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
         </GraySectionBox>
       </ContentGrid>
