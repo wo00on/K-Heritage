@@ -143,10 +143,14 @@ const EmptyCart = styled.div`
 `;
 
 export default function Cart() {
+  // 전역 상태관리: 장바구니 데이터 및 조작 함수 가져오기
   const { cart, updateQuantity, removeFromCart } = useCart();
 
+  // 총 결제금액 계산: reduce 고차 함수를 사용하여 배열의 합계 도출
+  // (초기값 0부터 시작하여 각 아이템의 가격 * 수량을 누적)
   const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
+  // Guard Clause: 장바구니가 비었을 때 조기 리턴하여 불필요한 렌더링 방지
   if (cart.length === 0) {
     return (
       <Container>
@@ -164,19 +168,24 @@ export default function Cart() {
       <Title>장바구니</Title>
       <CartList>
         {cart.map(item => (
+          // key prop: 효율적인 DOM 업데이트를 위해 고유 ID 사용 필수
           <CartItem key={item.id}>
             <ItemImage>
+              {/* 이미지 데이터 존재 여부 확인 (방어 코드) */}
               {item.images && item.images[0] && <img src={item.images[0]} alt={item.name} />}
             </ItemImage>
             <ItemInfo>
               <ItemName>{item.name}</ItemName>
+              {/* toLocaleString(): 가격 천단위 콤마 자동 포맷팅 */}
               <ItemPrice>{item.price.toLocaleString()}won</ItemPrice>
             </ItemInfo>
             <QuantityControl>
+              {/* 수량 변경 핸들러: 아이템 ID와 증감값을 전달하여 전역 상태 업데이트 */}
               <button onClick={() => updateQuantity(item.id, -1)}>-</button>
               <span>{item.quantity}</span>
               <button onClick={() => updateQuantity(item.id, 1)}>+</button>
             </QuantityControl>
+            {/* 삭제 핸들러: 해당 아이템 ID로 리스트에서 제거 */}
             <RemoveBtn onClick={() => removeFromCart(item.id)}>삭제</RemoveBtn>
           </CartItem>
         ))}
