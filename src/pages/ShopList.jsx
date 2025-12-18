@@ -79,20 +79,19 @@ const Price = styled.div`
 `;
 
 export default function ShopList() {
-  // 다국어 지원 훅: 현재 언어 설정에 맞는 텍스트를 가져오기 위해 사용 (전역 상태)
+  // 영어 지원 훅 t
   const { t } = useLanguage();
-  
+
   // 상품 목록 상태: 초기값을 빈 배열([])로 설정하여 데이터 로딩 전 map 에러 방지
-  // (null로 하면 렌더링 부분에서 ?. 로 체크해야 해서 번거로움)
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // 컴포넌트 마운트 시점에만 API 호출 (의존성 배열이 빈 배열)
-    // 불필요한 재요청을 막아 서버 부하를 줄임
+    // 컴포넌트 마운트 시점에만 API 호출 
+
     fetch(`${API}/products`)
       .then(res => res.json())
       .then(setProducts)
-      // 실제 서비스라면 catch로 에러 처리도 해야 하지만, 과제 범위상 생략함
+      // 실제 서비스라면 catch로 에러 처리도 해야 하지만, ui의 구현을 위주로 개발함
       .catch(e => console.error("상품 로딩 실패:", e));
   }, []);
 
@@ -104,16 +103,16 @@ export default function ShopList() {
       </Header>
       <Grid>
         {products.map(p => (
-          // key prop: 리액트가 DOM 업데이트 성능을 최적화할 때 사용함 (유니크한 DB ID 사용 필수)
+          // key prop: 리액트가 DOM 업데이트 성능을 최적화할 때 사용함
           <ProductCard key={p.id} to={`/shop/${p.id}`}>
             <ImageWrapper>
-              {/* 이미지가 없을 경우를 대비한 방어 코드 (&& 연산자 사용) */}
+              {/* 이미지가 가져오고 이미지가 없으면 안되서 && 이거 활용해서 사용 */}
               {p.images && p.images[0] && <img src={p.images[0]} alt={p.name} />}
             </ImageWrapper>
             <Info>
               <Category>{p.category}</Category>
               <Name>{p.name}</Name>
-              {/* toLocaleString: 천단위 콤마(,) 자동 처리 (프론트엔드 필수 유틸) */}
+              {/* toLocaleString: 천단위 콤마 */}
               <Price>{p.price.toLocaleString()}won</Price>
             </Info>
           </ProductCard>

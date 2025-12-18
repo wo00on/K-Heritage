@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { API } from '../lib/api';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -90,132 +90,87 @@ const Description = styled.p`
   white-space: pre-line;
 `;
 
-const InfoGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 24px;
-  background: #f9f9f9;
-  padding: 24px;
-  border-radius: 12px;
-`;
 
-const InfoItem = styled.div`
-  h4 {
-    margin: 0 0 8px;
-    color: #888;
-    font-size: 0.9rem;
-  }
-  p {
-    margin: 0;
-    font-weight: 500;
-    color: #333;
-    font-size: 1.1rem;
-  }
-`;
 
-const RelatedSection = styled.div`
-  margin-top: 60px;
-`;
 
-const ProductGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
-`;
 
-const ProductCard = styled(Link)`
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  
-  img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 12px;
-  }
-  
-  h3 {
-    margin: 0 0 4px;
-    font-size: 1rem;
-  }
-  
-  p {
-    margin: 0;
-    font-weight: 700;
-    color: #1a1a1a;
-  }
-`;
-
+// 문화유산 상세 페이지 컴포넌트
 export default function HeritageDetail() {
+  // 영어 지원 훅 사용, 
   const { t } = useLanguage();
+  // URL 파라미터에서 문화유산 ID(예: gyeongbokgung) 추출
   const { id } = useParams();
-  const [item, setItem] = useState(null);
-  const [products, setProducts] = useState([]);
 
+  // 상태 관리: 문화유산 상세 정보
+  const [item, setItem] = useState(null);
+
+  // 데이터 로딩 훅: ID가 변경될 때마다 실행
   useEffect(() => {
+    // 해당 궁의 상세 정보를 가져옴,\
+    //쿼리 활용 하지만 이 부분은 백엔드 지식 기반으로 활용한 거여서 유지보수에 어려움이 있음
+
     fetch(`${API}/heritage/${id}`)
       .then(res => res.json())
       .then(setItem);
 
-    fetch(`${API}/products?relatedHeritageId=${id}`)
-      .then(res => res.json())
-      .then(setProducts);
+
   }, [id]);
 
+  // 데이터가 로딩되기 전에는 아무것도 렌더링하지 않음 (로딩 스피너 등을 추가할 수 있음)
   if (!item) return null;
 
   return (
     <Container>
+      {/* 상단 히어로 섹션: 문화유산의 대표 이미지와 이름을 웅장하게 표시 */}
       <Hero>
         {item.images && item.images[0] && <img src={item.images[0]} alt={t('palaces', `${item.id}_name`)} />}
         <HeroContent>
           <Category>{item.category}</Category>
+          {/* 키를 사용하여 문화유산 이름 표시, db에서 가져다 쓰고 있음 */}
           <Title>{t('palaces', `${item.id}_name`)}</Title>
         </HeroContent>
       </Hero>
 
+      {/* 메인 컨텐츠 영역: 상세 설명 및 관람 정보 */}
       <ContentWrapper>
         <InfoCard>
           <SectionTitle>{t('heritage', 'intro')}</SectionTitle>
           <Description>{t('palaces', `${item.id}_desc`)}</Description>
 
-          <InfoGrid>
-            <InfoItem>
-              <h4>{t('heritage', 'location')}</h4>
-              <p>{item.location}</p>
-            </InfoItem>
-            <InfoItem>
-              <h4>{t('heritage', 'hours')}</h4>
-              <p>{item.visitingHours}</p>
-            </InfoItem>
-          </InfoGrid>
 
+
+          {/*  각각ㄱ의  궁궐별 상세 설명 (조건부 렌더링) */}
+          {/* ID에 따라 다른 상세 설명 텍스트를 불러와 표시함, db에서 가져다 쓰고 있음 */}
+
+          {/* 경복궁 상세 설명 */}
           {id === 'gyeongbokgung' && (
             <Description style={{ marginTop: 40, borderTop: '1px solid #eee', paddingTop: 40 }}>
               {t('heritage', 'gyeongbokgungDetail')}
             </Description>
           )}
 
+          {/* 창덕궁 상세 설명 */}
           {id === 'changdeokgung' && (
             <Description style={{ marginTop: 40, borderTop: '1px solid #eee', paddingTop: 40 }}>
               {t('heritage', 'changdeokgungDetail')}
             </Description>
           )}
 
+          {/* 창경궁 상세 설명 */}
           {id === 'changgyeonggung' && (
             <Description style={{ marginTop: 40, borderTop: '1px solid #eee', paddingTop: 40 }}>
               {t('heritage', 'changgyeonggungDetail')}
             </Description>
           )}
 
+          {/* 덕수궁 상세 설명, 자료 정보가 많이 없어서 gpt화용ㅇ */}
           {id === 'deoksugung' && (
             <Description style={{ marginTop: 40, borderTop: '1px solid #eee', paddingTop: 40 }}>
               {t('heritage', 'deoksugungDetail')}
             </Description>
           )}
 
+          {/* 경희궁 상세 설명 */}
           {id === 'gyeonghuigung' && (
             <Description style={{ marginTop: 40, borderTop: '1px solid #eee', paddingTop: 40 }}>
               {t('heritage', 'gyeonghuigungDetail')}
@@ -223,20 +178,8 @@ export default function HeritageDetail() {
           )}
         </InfoCard>
 
-        {products.length > 0 && (
-          <RelatedSection>
-            <SectionTitle>{t('heritage', 'relatedGoods')}</SectionTitle>
-            <ProductGrid>
-              {products.slice(0, 2).map(p => (
-                <ProductCard key={p.id} to={`/shop/${p.id}`}>
-                  <img src={p.images[0]} alt={p.name} />
-                  <h3>{p.name}</h3>
-                  <p>{p.price.toLocaleString()}won</p>
-                </ProductCard>
-              ))}
-            </ProductGrid>
-          </RelatedSection>
-        )}
+
+
       </ContentWrapper>
     </Container>
   );

@@ -5,6 +5,7 @@ import { API } from '../lib/api';
 import { useLanguage } from '../contexts/LanguageContext';
 import Carousel from '../components/Carousel';
 import TemperatureConverter from '../components/TemperatureConverter';
+import WelcomeBanner from '../components/WelcomeBanner_010';
 
 const Hero = styled.div`
   height: 80vh;
@@ -194,14 +195,14 @@ export default function Home() {
 
   useEffect(() => {
     fetch(`${API}/heritage?_limit=3`).then(r => r.json()).then(setHeritage);
-    fetch(`${API}/products?_limit=12`).then(r => r.json()).then(setProducts);
+    fetch(`${API}/products?_limit=10`).then(r => r.json()).then(setProducts);
   }, []);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const videos = ['/images/korea_c.mp4', '/images/korea_k.mp4'];
   const videoRefs = React.useRef([]);
 
-  // 동영상 재생이 끝났을 때 다음 동영상으로 전환하는 핸들러 함수
+  // 동영상 재생이 끝났을 때 다음 동영상으로 전환하는 핸들러 함수, 중간중간 끊기는 현상 발생하여 수정 완료
   const handleVideoEnd = (index) => {
     // 현재 재생 중인 동영상의 다음 인덱스 계산 (마지막 동영상일 경우 처음으로 돌아감 - 순환 구조)
     const nextIndex = (index + 1) % videos.length;
@@ -211,7 +212,7 @@ export default function Home() {
     if (videoRefs.current[nextIndex]) {
       // 다음 동영상을 처음부터 재생하기 위해 재생 시간을 0으로 초기화
       videoRefs.current[nextIndex].currentTime = 0;
-      // 다음 동영상 재생 시작 - 끊김 없는 화면 전환을 위해 미리 재생 명령을 내림
+      // 다음 동영상 재생 시작 - 끊김 없는 화면 전환을 위해 미리 재생 명령을 내림,플레이함수 사용
       videoRefs.current[nextIndex].play();
     }
 
@@ -224,7 +225,7 @@ export default function Home() {
   // UI 렌더링 영역
   return (
     <div>
-      {/*  메인 히어로 섹션 (동영상 배경 + 환영 메시지) */}
+      {/*  메인 히어로 섹션 (동영상 배경 + 환영 메시지)만들어서 넣음 */}
       <Hero>
         {/* 배경 동영상 리스트 매핑 */}
         {videos.map((src, index) => (
@@ -249,6 +250,8 @@ export default function Home() {
         </HeroContent>
       </Hero>
 
+      <WelcomeBanner />
+
       {/*  문화유산 소개 섹션  */}
       <Section>
         <SectionHeader>
@@ -260,7 +263,7 @@ export default function Home() {
           {heritage.map(h => (
             <Card key={h.id} to={`/culture/${h.id}`}>
               <ImageBox>
-                {/* 이미지가 있을 경우 첫 번째 이미지를 썸네일로 사용 */}
+                {/*첫 번째 이미지를 썸네일로 사용 */}
                 {h.images && h.images[0] && <img src={h.images[0]} alt={t('palaces', `${h.id}_name`)} />}
               </ImageBox>
               {/* 영어 지원을 위해 t 함수 사용 */}
@@ -271,20 +274,20 @@ export default function Home() {
         </Grid>
       </Section>
 
-      {/*  유틸리티 섹션 (온도 변환기 포함) */}
+      {/*  섹션 (온도 변환기 포함) 교과서 활용하여 구현 */}
       <Section>
         {/* 온도 변환 기능과 세계 시각을 제공하는 컴포넌트 삽입 */}
         <TemperatureConverter />
       </Section>
 
       {/*  궁궐 소개 텍스트 섹션 */}
-      {/*  스타일이 적용된 섹션으로 텍스트 표시 */}
+      {/*  스타일이 적용된 섹션으로 텍스트 표시, db에서 데이터 갖고와서 활용 */}
       <PalaceSection>
         <PalaceTitle>{t('home', 'palaceTitle')}</PalaceTitle>
         <PalaceDesc>{t('home', 'palaceDesc')}</PalaceDesc>
       </PalaceSection>
 
-      {/*  굿즈샵 미리보기 섹션 (캐러셀 기능 포함) 캐러셀 구현 완료 */}
+      {/*  샵 미리보기 섹션 (캐러셀 기능 포함하여서 구현함), 캐러셀 구현 완료, 부분 실패 */}
       <Section>
         <SectionHeader>
           <SectionTitle>{t('home', 'sectionGoods')}</SectionTitle>
@@ -292,7 +295,8 @@ export default function Home() {
         </SectionHeader>
 
         {/* 상품 목록을 슬라이드 형태로 보여주기 위한 캐러셀 컴포넌트 사용 */}
-        {/* itemsToShow={5}: 한 화면에 5개의 상품 카드를 보여줌, 근데 완벽한 구현 실패 */}
+        {/* itemsToShow={5}: 한 화면에 5개의 상품 카드를 보여줌, 근데 완벽한 구현 실패, 양쪽 끝으로 이동이 안된다.. */}
+        {/*커널이 cnn 하는 것처럼 음 임의의 값을 줘야하는지 잘 모르겠음, 일단 임의의 값줘보기  */}
         <Carousel itemsToShow={5}>
           {products.map(p => (
             <Card key={p.id} to={`/shop/${p.id}`}>
@@ -301,7 +305,7 @@ export default function Home() {
                 {p.images && p.images[0] && <img src={p.images[0]} alt={p.name} />}
               </ImageBox>
               <CardTitle>{p.name}</CardTitle>
-              {/* 가격 포맷팅 (원 단위 won) */}
+              {/* 가격 포맷팅 (원 단위 won),  */}
               <CardDesc>{p.price.toLocaleString()}won</CardDesc>
             </Card>
           ))}

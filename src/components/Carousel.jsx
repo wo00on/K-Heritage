@@ -61,21 +61,23 @@ const Button = styled.button`
   }
 `;
 
-//전체 디자인 및 기능 구현, 1차 테스트 진행 : 디자인을 하나씩 대입 후 적용 유무 판단하기 
+//전체 캐러셀 디자인 및 기능 구현, 1차 테스트 진행 :디자인을 하나씩 대입 후 적용 유무 판단하기
+//ㅅ먀tailwindcss 가 아닌 styled-components를 사용하여 디자인 구현으로 오류 다수 
 export default function Carousel({ children, itemsToShow = 4 }) {
-  // 현재 보여줄 슬라이드의 시작 인덱스를 관리하는 상태 (0부터 시작)
+  // 현재 보여줄 슬라이드의 시작 인덱스를 관리하는 상태 --> 0부터 시작
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 자식 요소(슬라이드 아이템)의 전체 개수 계산
+  //슬라이드 아이템의 전체 개수 계산
   const totalItems = React.Children.count(children);
 
   // 마지막 슬라이드가 보일 수 있는 최대 인덱스 계산
-  // 전체 아이템 수에서 한번에 보여줄 개수를 뺀 값 (음수가 되지 않도록 0과 비교)
+  //전체 아이템 수에서 한번에 보여줄 개수를 뺀 값 ----> 음수가 되지 않도록 0과 비교
+  //math 함수 사요6ㅇ
   const maxIndex = Math.max(0, totalItems - itemsToShow);
 
   // 다음 슬라이드로 이동하는 함습
   const next = () => {
-    // 최대 인덱스를 초과하지 않도록 현재 인덱스 + 1 설정
+
     setCurrentIndex(prev => Math.min(prev + 1, maxIndex));
   };
 
@@ -94,10 +96,10 @@ export default function Carousel({ children, itemsToShow = 4 }) {
         <Button className="prev" onClick={prev}>&lt;</Button>
       )}
 
-      {/* 슬라이드 트랙: 현재 인덱스에 따라 위치 이동 (translateX) */}
+      {/* 슬라이드 트랙: 현재 인덱스에 따라 위치 이동  */}
       <Track $currentIndex={currentIndex} $itemsToShow={itemsToShow}>
         {React.Children.map(children, (child, index) => {
-          // 중앙에 위치한 아이템인지 계산 (선택사항: 중앙 강조 효과용)
+          // 중앙에 위치한 아이템인지 계산 
           const isCenter = index === currentIndex + Math.floor(itemsToShow / 2);
           return (
             <Slide $itemsToShow={itemsToShow} $isCenter={isCenter}>
@@ -107,7 +109,7 @@ export default function Carousel({ children, itemsToShow = 4 }) {
         })}
       </Track>
 
-      {/* 마지막 슬라이드에 도달하지 않았을 때만 '다음' 버튼 표시 */}
+      {/* 마지막 슬라이드에 도달하지 않았을 때만 '다음' 버튼 표시, 실패... */}
       {currentIndex < maxIndex && (
         <Button className="next" onClick={next}>&gt;</Button>
       )}

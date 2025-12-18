@@ -38,12 +38,7 @@ const Input = styled.input`
   }
 `;
 
-const Unit = styled.span`
-  position: absolute;
-  right: 16px;
-  color: #888;
-  font-size: 0.9rem;
-`;
+
 
 export default function TemperatureInput(props) {
   const { t } = useLanguage();

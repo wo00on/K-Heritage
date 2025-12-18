@@ -46,16 +46,6 @@ const List = styled.ul`
     }
   }
 `;
-
-const Copyright = styled.div`
-  text-align: center;
-  margin-top: 60px;
-  padding-top: 20px;
-  border-top: 1px solid #333;
-  color: #666;
-  font-size: 0.9rem;
-`;
-
 export default function Footer() {
   const { t } = useLanguage();
   return (
@@ -78,7 +68,7 @@ export default function Footer() {
             </List>
           </Section>
 
-          {/* 전부다 링크 걸어놓기!!! 잊지말기!!! */}
+          {/* 전부다 링크 걸어놓기!!! 잊지말기!!!, 일단 링크를 각 웹사이트 기본페이지로 가게 만들기 */}
 
           <Section>
             <Title>SNS</Title>

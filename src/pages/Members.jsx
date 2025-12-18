@@ -12,7 +12,7 @@ const Table = styled.table`
   th{ background:#fafafa; font-weight:700; }
 `;
 
-export default function Members(){
+export default function Members() {
   const [rows, setRows] = useState([]);
   const [q, setQ] = useState('');
   const [loading, setLoading] = useState(true);
@@ -35,21 +35,21 @@ export default function Members(){
   }, []);
 
   const filtered = rows.filter(u => {
-    const key = (u.name + u.userId + (u.phone||'') + (u.interests||[]).join(',')).toLowerCase();
+    const key = (u.name + u.userId + (u.phone || '') + (u.interests || []).join(',')).toLowerCase();
     return key.includes(q.toLowerCase());
   });
 
   if (loading) return <Wrap>불러오는 중…</Wrap>;
-  if (err) return <Wrap style={{color:'crimson'}}>{err}</Wrap>;
+  if (err) return <Wrap style={{ color: 'crimson' }}>{err}</Wrap>;
 
   return (
     <Wrap>
       <Head>
-        <h2 style={{margin:0}}>회원 목록</h2>
+        <h2 style={{ margin: 0 }}>회원 목록</h2>
         <Input
-          placeholder="이름/ID/전화/관심지역 검색…"
+          placeholder="이름/ID/전화 검색…"
           value={q}
-          onChange={e=>setQ(e.target.value)}
+          onChange={e => setQ(e.target.value)}
         />
       </Head>
       <Table>
@@ -72,7 +72,7 @@ export default function Members(){
           ))}
           {filtered.length === 0 && (
             <tr>
-              <td colSpan="4" style={{color:'#888', padding:'18px 14px'}}>
+              <td colSpan="4" style={{ color: '#888', padding: '18px 14px' }}>
                 검색 결과가 없습니다.
               </td>
             </tr>

@@ -53,20 +53,21 @@ const Answer = styled.p`
 `;
 
 export default function FAQ() {
-  // 다국어 지원 훅: 현재 언어 설정에 맞는 텍스트 객체(t) 사용
+  // 영어 지원 훅: 현재 언어 설정에 맞는 텍스트 객체 t 사용
   const { t } = useLanguage();
 
   return (
     <>
-      <Container>
+
+      <Container>{/* 모든 데이터는 db에서 뿌려주고 있음. 그래서 만약에 내가 db를 구축하면 데이터별로 사용할 수 있어서 유지보수에 용이하긴 함 */}
         <Header>
-          {/* t 함수: 'category'와 'key'를 조합하여 번역된 텍스트 반환 */}
+          {/* t 함수: category와 key를 조합하여 번역된 텍스트 반환, 하드코딩의 어려움이 있지만 그래도 번역은 잘된다 */}
           <Title>{t('faq', 'title')}</Title>
           <Subtitle>{t('faq', 'subtitle')}</Subtitle>
         </Header>
 
         <FAQList>
-          {/* 정적 컨텐츠지만 다국어 지원을 위해 t함수로 랩핑됨 */}
+          {/* 정적 컨텐츠지만 다국어 지원을 위해 t함수로 랩핑됨, 따라서 동적처럼 보이긴함 */}
           <FAQItem>
             <Question>Q. {t('faq', 'q1')}</Question>
             <Answer>A. {t('faq', 'a1')}</Answer>

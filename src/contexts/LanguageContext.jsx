@@ -25,7 +25,6 @@ const translations = {
         },
         cart: {
             title: '장바구니',
-            empty: '장바구니가 비어있습니다.',
             goShop: '쇼핑하러 가기',
             remove: '삭제',
             total: '총 결제금액',
@@ -431,18 +430,18 @@ Restoration: Only a small part of the original scale has been restored. Opened t
     }
 };
 
-// 언어 관련 데이터를 전역적으로 관리 공급하는 Provider 컴포넌트
+// 언어 관련 데이터를 전역적으로 관리하고 내보내는 Provider 컴포넌트
 export function LanguageProvider({ children }) {
     // 현재 선택된 언어 상태 관리 ('ko': 한국어, 'en': 영어) - 기본값은 한국어
     const [language, setLanguage] = useState('ko');
 
-    // 언어를 토글(전환)하는 함수
-    // 한국어('ko')일 경우 영어('en')로, 그 외의 경우(영어)에는 다시 한국어로 변경
+    // 언어를 토글로 전환을 하는 함수
+    // 한국어('ko')일 경우 영어('en')로, 영어에는 다시 한국어로 변경
     const toggleLanguage = () => {
         setLanguage(prev => prev === 'ko' ? 'en' : 'ko');
     };
 
-    // 다국어 번역 헬퍼 함수
+    // 영어 번역 헬퍼 함수
     // section: 번역 데이터의 대분류 (예: 'nav', 'home' 등)
     // key: 대분류 내의 구체적인 항목 키
     // 동작: 현재 설정된 언어(language)에 맞는 번역 객체에서 텍스트를 찾아 반환
@@ -462,9 +461,10 @@ export function LanguageProvider({ children }) {
     );
 }
 
-// 하위 컴포넌트에서 언어 관련 데이터에 쉽게 접근하기 위한 커스텀 Hook
+// 하위 컴포넌트에서 언어 관련 데이터에 쉽게 접근하기 위한 커스텀 Hook, 하지만 영어 번역을 이렇게 하드 코딩하는 것은 처음
 // useContext(LanguageContext)를 직접 사용하는 대신 이 Hook을 호출하여 사용
 // 반환값: { language, toggleLanguage, t } 객체
+// 일단 t 함수를 활용하면 번역기능을 사용한다고 보면 된다. 그 anguageProvider 이걸로 감싸서 사용ㅇ
 export function useLanguage() {
     return useContext(LanguageContext);
 }

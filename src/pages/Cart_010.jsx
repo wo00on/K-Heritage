@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useCart } from '../contexts/CartContext';
-import { useLanguage } from '../contexts/LanguageContext';
+
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
@@ -156,7 +156,6 @@ export default function Cart() {
       <Container>
         <Title>장바구니</Title>
         <EmptyCart>
-          <p>장바구니가 비어있습니다.</p>
           <Link to="/shop">쇼핑하러 가기</Link>
         </EmptyCart>
       </Container>

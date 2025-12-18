@@ -4,7 +4,7 @@
 
 import React, { useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { logout } from '../lib/api';
 
 // Prop Drilling을 방지하기 위해 Context API를 사용하여 전역 상태를 관리합니다.
@@ -113,7 +113,9 @@ const LangButton = styled.button`
 `;
 
 export default function Header() {
-  // 사용자 인증, 장바구니 관리, 다국어 처리를 위한 전역 컨텍스트에 접근합니다.
+  // 사용자 인증, 장바구니 관리, 다국어 처리를 위한 전역 컨텍스트에 접근
+  // useContext 훅 사용하고 uselanguage 사용함 
+  // t가 영어 변환 함수이
   const { user, setUser } = useContext(UserContext);
   const { cart } = useCart();
   const { t, language, toggleLanguage } = useLanguage();
@@ -139,7 +141,7 @@ export default function Header() {
   return (
     <Bar $isHome={isHome}>
       <Brand to="/" $isHome={isHome}>K-Heritage</Brand>
-      <Nav $isHome={isHome}>
+      <Nav $isHome={isHome}>{/* 네비게이션처럼 링크 다 걸어두기 사실 라우터로 구현 했다가 실패..*/}
         <Link to="/culture">{t('nav', 'culture')}</Link>
         <Link to="/shop">{t('nav', 'shop')}</Link>
         <Link to="/faq">{t('nav', 'faq')}</Link>

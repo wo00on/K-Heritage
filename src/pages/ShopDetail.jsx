@@ -99,19 +99,21 @@ export default function ShopDetail() {
   useEffect(() => {
     // 의존성 배열에 [id] 포함: 관련 상품 클릭 등으로 ID가 바뀌면 새로 요청해야 함
     // (빈 배열로 두면 ID가 바껴도 화면이 안 바뀌는 버그 발생 가능)
+    //기초 백엔드 지식을 기반으로 작성하였지만 db를 구축하지 않은 상태여서 유지보수가 어려움
+    //먼저 기본 구현에 집중하여 개발
     fetch(`${API}/products/${id}`)
       .then(res => res.json())
       .then(setProduct);
   }, [id]);
 
   // Guard Clause: 데이터 로딩 전에는 아무것도 렌더링하지 않음 (Null Check)
-  // (실제로는 스켈레톤 UI나 로딩 스피너를 넣는게 좋음)
+  // (실제로는 스켈레톤 UI나 로딩 스피너를 넣는게 좋음, 하지만 tailwindcss 로 구현하는게 아니여서)
+  // 어려움이 있어서 사용을 하지 못함
   if (!product) return null;
 
   const handleAddToCart = () => {
-    // 불변성 유지를 위해 CartContext 내부에서 처리하도록 위임
     addToCart(product);
-    
+
     // 사용자 경험(UX): 장바구니로 바로 이동할지 선택권 부여 (window.confirm 사용)
     // 모달을 직접 구현하면 코드가 길어져서 브라우저 기본 기능 활용
     if (window.confirm(t('shop', 'added'))) {
@@ -127,7 +129,7 @@ export default function ShopDetail() {
       <InfoSection>
         <Category>{product.category}</Category>
         <Name>{product.name}</Name>
-        {/* toLocaleString() 써서 천단위 콤마 자동 처리 */}
+        {/* toLocaleString() 써서 천단위 콤마 자동 처리, 저 객체는 주로 날짜에서 쓰지만 숫자에서는 콤마를 넣어줘서 사용 */}
         <Price>{product.price.toLocaleString()}won</Price>
 
         <Button onClick={handleAddToCart}>{t('shop', 'addToCart')}</Button>

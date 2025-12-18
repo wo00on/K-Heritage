@@ -16,7 +16,7 @@ export default function WelcomeBanner() {
   if (!user) return null;
   return (
     <Wrap>
-      <strong>환영합니다.</strong> {user.name} 님이 로그인하셨습니다.
+      {user.name} 님이 로그인하셨습니다.
     </Wrap>
   );
 }

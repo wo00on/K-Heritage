@@ -221,7 +221,7 @@ export default function Signup() {
       return;
     }
 
-    // 3. 중복 아이디 체크 (API 호출)
+    // 3. 중복 아이디 체크 
     // 원래는 백엔드에서 에러 뱉어야 하는데 json-server라서 이렇게 함
     const exists = await fetch(`${API}/users?userId=${form.userId}`).then(r => r.json());
     if (exists.length > 0) {

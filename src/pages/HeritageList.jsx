@@ -99,8 +99,10 @@ const Desc = styled.p`
 
 export default function HeritageList() {
   const { t } = useLanguage();
+  // 문화유산 목록 상태 관리
   const [items, setItems] = useState([]);
 
+  // 마운트 시 데이터 페칭
   useEffect(() => {
     fetch(`${API}/heritage`)
       .then(res => res.json())
@@ -114,6 +116,7 @@ export default function HeritageList() {
         <Subtitle>{t('heritage', 'subtitle')}</Subtitle>
       </Header>
       <Grid>
+        {/* 문화유산 목록을 순회하며 각 항목에 대한 카드 컴포넌트를 렌더링. */}
         {items.map(item => (
           <Card key={item.id} to={`/culture/${item.id}`}>
             <ImageWrapper>
